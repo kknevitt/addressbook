@@ -18,11 +18,13 @@ A Shoes app that models a basic address book. It will touch on our knowledge of 
   * twitter
   * fun_fact
 
-2. Finish the implementation of the draw_input_form method so that the shoes app prompts for all of the fields and populates the values into the person object's attribute accessors.
+Finish the implementation of the draw_questions method so that the shoes app prompts for all of the fields.
 
-3. Refactor the code attached to the ListBox, so that we can create a Student or an Instructor, based on the users type selection, using a Factory pattern on the Person class.
+2. Finish the implementation of the save_values method so that the shoes app populates the values into the person object's attribute accessors and prints them out to the console upon save.
 
-4. Add code so that the extra fields preferred_text_editor and teaching_experience only show up for the correct Person subclass type.
+3. Finish the implementation of the ListBox, so that we can create a Trainee or an Instructor, based on the users type selection, using a Factory pattern on the Person class. Don't forget to pass in @form so that the shoes methods will work. Call draw on your new Object to redraw the form when the drop-down list changes.
+
+4. Override methods in Trainee and Instructor so that the extra fields preferred_text_editor and teaching_experience only show up for the correct Person subclass type and are saved when the save button is pressed.
 
 5. Add code to the alphabet buttons, so that when they are clicked the form displays the names of any Person objects saved in the address book. Refactor your logic so that the lookup happens in the Person class. HINT - lookup the Ruby Array API for each, select.
 
@@ -32,5 +34,8 @@ A Shoes app that models a basic address book. It will touch on our knowledge of 
 
 8. Add another user type of your own choosing with custom fields and information.
 
-9. Go around the room and get everyone to input their contact details so you
+9. Refactor your code so that each Class lives in its own file, so you end up with
+four Ruby files.
+
+10. Go around the room and get everyone to input their contact details so you
 have a database with everyone's details.
