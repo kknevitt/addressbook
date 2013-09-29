@@ -18,6 +18,8 @@ class Person
     self.shoes = shoes
   end
 
+  # Displays the input form to the user
+  #
   def draw
     shoes.clear
     shoes.append do
@@ -56,8 +58,9 @@ class Person
     # relevant to the given user type.
   end
 
+  # Set the persons's name to the contents of the text box
+  #
   def save_values
-    # Set the persons's name to the contents of the text box
     self.first_name = @first_name_field.text.strip.chomp
     self.last_name = @last_name_field.text.strip.chomp
 
@@ -78,11 +81,8 @@ Shoes.app title: "Ruby Address Book", width: 520 do
   ('A'..'Z').each do |letter|
     flow width: 40 do
       button letter do
-        @form.clear
-        @form.append do
-          # TODO 5. Show each of the Person objects in the address_book where the
-          # last name matches.
-        end
+        # TODO 5. Show each of the Person objects in the address_book where the
+        # last name matches.
       end
     end
   end
