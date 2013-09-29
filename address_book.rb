@@ -77,6 +77,7 @@ class Instructor < Person
 end
 
 Shoes.app title: "Ruby Address Book", width: 520 do
+  background rgb(240, 250, 208)
   # The row of buttons to lookup Person objects in the address_book
   ('A'..'Z').each do |letter|
     flow width: 40 do
