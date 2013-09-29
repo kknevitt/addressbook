@@ -13,6 +13,7 @@ A Shoes app that models a basic address book. It will touch on our knowledge of 
 # TODO
 
 1. Add the following attributes to the Person class, plus anything else that you want to know about your colleagues (don't be nosy...). Finish the implementation of the draw_questions method so that the shoes app prompts for all of the fields.
+
 * email
 * github
 * twitter
