@@ -12,13 +12,11 @@ A Shoes app that models a basic address book. It will touch on our knowledge of 
 
 # TODO
 
-1. Add these attributes to the Person class, plus anything else that you want to know about your colleagues (don't be nosy...):
-  * email
-  * github
-  * twitter
-  * fun_fact
-
-Finish the implementation of the draw_questions method so that the shoes app prompts for all of the fields.
+1. Add the following attributes to the Person class, plus anything else that you want to know about your colleagues (don't be nosy...). Finish the implementation of the draw_questions method so that the shoes app prompts for all of the fields.
+* email
+* github
+* twitter
+* fun_fact
 
 2. Finish the implementation of the save_values method so that the shoes app populates the values into the person object's attribute accessors and prints them out to the console upon save.
 
