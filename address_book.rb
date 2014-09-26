@@ -68,6 +68,11 @@ class Person
 
     # TODO: 2. Finish the implementation to set the other fields.
   end
+
+  def to_yaml_properties
+    #Add the fields that should be saved to the YAML file
+   %w(@first_name @last_name)
+  end
 end
 
 class Trainee < Person
