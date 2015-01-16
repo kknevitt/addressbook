@@ -23,6 +23,14 @@ class Person
     self.shoes = shoes
   end
 
+  def self.makePerson(type, stack)
+    if type == "Trainee"
+      person = Trainee.new(stack)
+    elsif type == "Instructor"
+      person = Instructor.new(stack)
+    end
+  end
+
   # Displays the input form to the user
   #
   def draw
@@ -30,11 +38,11 @@ class Person
     shoes.append do
 
       # Show the questions on the screen
-      # draw_questions
+#       draw_questions
 
       shoes.app.button "Save" do
         # Set the values from the boxes into the Object
-        save_values
+   #     save_values
 
         # Append ourselves to our address_book Array
         $address_book << self
@@ -60,6 +68,7 @@ class Person
       @last_name_field = shoes.edit_line
     end
 
+
     # TODO 4. Add fields for the user to fill in, but only if they are
     # relevant to the given user type.
   end
@@ -69,6 +78,11 @@ class Person
   def save_values
     self.first_name = @first_name_field.text.strip.chomp
     self.last_name = @last_name_field.text.strip.chomp
+    self.email = @email_field.text.strip.chomp
+    self.github = @github_field.text.strip.chomp
+    self.twitter = @twitter_field.text.strip.chomp
+    self.fun_fact = @fun_fact_field.text.strip.chomp
+
 
     # TODO: 2. Finish the implementation to set the other fields.
   end
@@ -105,6 +119,7 @@ Shoes.app title: "Ruby Address Book", width: 520 do
       list_box :items => %w(Trainee Instructor) do |selected|
         debug selected.text
 
+        @person = Person.makePerson(selected.text, stack)
         # TODO 3. Create a Trainee or an Instructor using a Person factory method
         # and store the result in @person. Show the fields for the user to fill in
       end
