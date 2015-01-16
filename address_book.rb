@@ -23,11 +23,11 @@ class Person
     self.shoes = shoes
   end
 
-  def self.makePerson(type, stack)
+  def self.makePerson(type, shoes)
     if type == "Trainee"
-      person = Trainee.new(stack)
+      person = Trainee.new(shoes)
     elsif type == "Instructor"
-      person = Instructor.new(stack)
+      person = Instructor.new(shoes)
     end
   end
 
@@ -38,7 +38,7 @@ class Person
     shoes.append do
 
       # Show the questions on the screen
-#       draw_questions
+   #   draw_questions
 
       shoes.app.button "Save" do
         # Set the values from the boxes into the Object
@@ -119,7 +119,8 @@ Shoes.app title: "Ruby Address Book", width: 520 do
       list_box :items => %w(Trainee Instructor) do |selected|
         debug selected.text
 
-        @person = Person.makePerson(selected.text, stack)
+        @person = Person.makePerson(selected.text, self)
+        @person.draw_questions
         # TODO 3. Create a Trainee or an Instructor using a Person factory method
         # and store the result in @person. Show the fields for the user to fill in
       end
