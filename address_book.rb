@@ -33,6 +33,15 @@ class Person
 
   # Displays the input form to the user
   #
+
+  def self.show_names(letter)
+    total = $address_book.select {|address|
+      address.first_name.start_with?(letter.downcase, letter.upcase)
+    }
+
+    return total
+  end
+
   def draw
     shoes.clear
     shoes.append do
@@ -40,15 +49,15 @@ class Person
       # Show the questions on the screen
       draw_questions
 
-    shoes.app.button "Save" do
+        shoes.app.button "Save" do
         # Set the values from the boxes into the Object
         save_values
 
         # Append ourselves to our address_book Array
-     $address_book << self
+       $address_book << self
 
         # TODO: 6. Open a address_book.yml YAML file and write it out to disc
-      shoes.app.debug self.to_yaml
+        shoes.app.debug self.to_yaml
 
         shoes.app.alert 'Saved'
       end
@@ -89,8 +98,6 @@ class Person
       @fun_fact_field = shoes.app.edit_line
     end
 
-
-
     # TODO 4. Add fields for the user to fill in, but only if they are
     # relevant to the given user type.
   end
@@ -105,24 +112,38 @@ class Person
     self.twitter = @twitter_field.text.strip.chomp
     self.fun_fact = @fun_fact_field.text.strip.chomp
 
-    puts self.github
-
 
     # TODO: 2. Finish the implementation to set the other fields.
   end
 
   def to_yaml_properties
     #Add the fields that should be saved to the YAML file
-   %w(@first_name @last_name)
+   %w(@first_name @last_name @email @github @twitter @fun_fact)
   end
 end
 
 class Trainee < Person
   attr_accessor :preferred_text_editor
+
+  def draw_questions
+    super 
+    shoes.app.flow do
+      shoes.app.caption "Preferred Text Editor"
+      @fpreferred_text_editor_field = shoes.app.edit_line
+    end
+  end
 end
 
 class Instructor < Person
   attr_accessor :teaching_experience
+
+    def draw_questions
+    super 
+    shoes.app.flow do
+      shoes.app.caption "Teaching Experience"
+      @teaching_experience = shoes.app.edit_line
+    end  
+  end
 end
 
 Shoes.app title: "Ruby Address Book", width: 520 do
@@ -131,6 +152,10 @@ Shoes.app title: "Ruby Address Book", width: 520 do
   ('A'..'Z').each do |letter|
     flow width: 40 do
       button letter do
+        b = Person.show_names(letter)
+        b.each{|person|
+          puts person.first_name
+        }
         # TODO 5. Show each of the Person objects in the address_book where the
         # last name matches.
       end
@@ -142,7 +167,6 @@ Shoes.app title: "Ruby Address Book", width: 520 do
     flow do
       caption "Type"
       list_box :items => %w(Trainee Instructor) do |selected|
-        
         @person = Person.makePerson(selected.text, @form).draw
 
         # TODO 3. Create a Trainee or an Instructor using a Person factory method
