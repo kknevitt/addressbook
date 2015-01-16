@@ -42,15 +42,15 @@ class Person
 
     shoes.app.button "Save" do
         # Set the values from the boxes into the Object
-   #     save_values
+        save_values
 
         # Append ourselves to our address_book Array
      $address_book << self
 
         # TODO: 6. Open a address_book.yml YAML file and write it out to disc
-      shoes.debug self.to_yaml
+      shoes.app.debug self.to_yaml
 
-        shoes.alert 'Saved'
+        shoes.app.alert 'Saved'
       end
     end
   end
@@ -89,6 +89,8 @@ class Person
       @fun_fact_field = shoes.app.edit_line
     end
 
+
+
     # TODO 4. Add fields for the user to fill in, but only if they are
     # relevant to the given user type.
   end
@@ -102,6 +104,8 @@ class Person
     self.github = @github_field.text.strip.chomp
     self.twitter = @twitter_field.text.strip.chomp
     self.fun_fact = @fun_fact_field.text.strip.chomp
+
+    puts self.github
 
 
     # TODO: 2. Finish the implementation to set the other fields.
@@ -133,15 +137,14 @@ Shoes.app title: "Ruby Address Book", width: 520 do
     end
   end
 
+
   stack margin: 20 do
-    @form = stack
     flow do
       caption "Type"
       list_box :items => %w(Trainee Instructor) do |selected|
-        debug selected.text
+        
+        @person = Person.makePerson(selected.text, @form).draw
 
-        @person = Person.makePerson(selected.text, @form)
-        @person.draw
         # TODO 3. Create a Trainee or an Instructor using a Person factory method
         # and store the result in @person. Show the fields for the user to fill in
       end
@@ -149,11 +152,10 @@ Shoes.app title: "Ruby Address Book", width: 520 do
 
     # This reserves space for the form elements to be appended later by the
     # draw method
-    
+    @form = stack
 
     # Actually draw the form using Trainee as a default
     @person = Trainee.new(@form)
     @person.draw
   end
-
 end
