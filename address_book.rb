@@ -154,7 +154,7 @@ Shoes.app title: "Ruby Address Book", width: 520 do
       button letter do
         b = Person.show_names(letter)
         b.each{|person|
-          puts person.first_name
+          puts "Person starting with #{letter} : #{person.first_name} #{person.last_name}"
         }
         # TODO 5. Show each of the Person objects in the address_book where the
         # last name matches.
