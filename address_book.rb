@@ -35,33 +35,29 @@ class Person
   #
 
   def show_names(letter)
-    results = $address_book.select {|address|
-      address.last_name.start_with?(letter.downcase, letter.upcase)
-    }
-    results.each_with_index{|result, index|
-      puts "#{index} #{result.first_name} #{result.last_name}"
+
+    $address_book.each{|x|
+      puts x.inspect
     }
 
-    # binding.pry
-    # shoes.clear
-    # shoes.append do
-
-    #   results.each{|result|
-    #     shoes.app.flow.caption "result"
-
-    #   }
+    # results = $address_book.select {|address|
+    #   address.last_name.start_with?(letter.downcase, letter.upcase)
+    # }
+    # results.each_with_index{|result, index|
+    #   puts "#{index} #{result.first_name} #{result.last_name}"
+    # }
 
   end
 
   def draw
 
-    # yaml_file = YAML.load_file('address_book.yml')
-    # puts yaml_file.class
-
-      YAML.load_file("address_book.yml") do |object|
-        puts object.inspect
-        #$address_book.push(ydoc)
+    File.open("address_book.yml") do |yf|
+      YAML.load_documents( yf ) do |ydoc|
+        $address_book.push(ydoc)
+      end
     end
+
+    puts $address_book.inspect
 
    # puts $address_book.inspect
 
@@ -82,19 +78,19 @@ class Person
         # TODO: 6. Open a address_book.yml YAML file and write it out to disc
        # shoes.app.debug 
 
-        file = File.open("address_book.yml", "w")
-        to_save = self.instance_variables & to_yaml_properties.map{|x| x.to_sym}
-        hash_save = Hash[to_save.zip self]
+       save_data
 
-        puts hash_save.inspect
 
-        #file.puts to_save.to_yaml
-
-        file.close  
 
         shoes.app.alert 'Saved'
       end
     end
+  end
+
+  def save_data
+        file = File.open("address_book.yml", "w")
+        file.puts $address_book.to_yaml
+        file.close  
   end
 
   # Renders some labels and textboxes to prompt the user for input
