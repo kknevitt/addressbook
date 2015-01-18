@@ -34,15 +34,38 @@ class Person
   # Displays the input form to the user
   #
 
-  def self.show_names(letter)
-    total = $address_book.select {|address|
-      address.first_name.start_with?(letter.downcase, letter.upcase)
+  def show_names(letter)
+    results = $address_book.select {|address|
+      address.last_name.start_with?(letter.downcase, letter.upcase)
+    }
+    results.each_with_index{|result, index|
+      puts "#{index} #{result.first_name} #{result.last_name}"
     }
 
-    return total
+    # binding.pry
+    # shoes.clear
+    # shoes.append do
+
+    #   results.each{|result|
+    #     shoes.app.flow.caption "result"
+
+    #   }
+
   end
 
   def draw
+
+    # yaml_file = YAML.load_file('address_book.yml')
+    # puts yaml_file.class
+
+      YAML.load_file("address_book.yml") do |object|
+        puts object.inspect
+        #$address_book.push(ydoc)
+    end
+
+   # puts $address_book.inspect
+
+
     shoes.clear
     shoes.append do
 
@@ -57,7 +80,17 @@ class Person
        $address_book << self
 
         # TODO: 6. Open a address_book.yml YAML file and write it out to disc
-        shoes.app.debug self.to_yaml
+       # shoes.app.debug 
+
+        file = File.open("address_book.yml", "w")
+        to_save = self.instance_variables & to_yaml_properties.map{|x| x.to_sym}
+        hash_save = Hash[to_save.zip self]
+
+        puts hash_save.inspect
+
+        #file.puts to_save.to_yaml
+
+        file.close  
 
         shoes.app.alert 'Saved'
       end
@@ -111,14 +144,15 @@ class Person
     self.github = @github_field.text.strip.chomp
     self.twitter = @twitter_field.text.strip.chomp
     self.fun_fact = @fun_fact_field.text.strip.chomp
-
-
+    # self.preferred_text_editor = @preferred_text_editor.text.strip.chomp
+    # self.teaching_experience = @teaching_experience.text.strip.chomp
     # TODO: 2. Finish the implementation to set the other fields.
   end
 
   def to_yaml_properties
     #Add the fields that should be saved to the YAML file
-   %w(@first_name @last_name @email @github @twitter @fun_fact)
+    data =  %w(@first_name @last_name @email @github @twitter @fun_fact @preferred_text_editor @teaching_experience)
+
   end
 end
 
@@ -152,10 +186,7 @@ Shoes.app title: "Ruby Address Book", width: 520 do
   ('A'..'Z').each do |letter|
     flow width: 40 do
       button letter do
-        b = Person.show_names(letter)
-        b.each{|person|
-          puts "Person starting with #{letter} : #{person.first_name} #{person.last_name}"
-        }
+          @person = Person.new(flow).show_names letter        
         # TODO 5. Show each of the Person objects in the address_book where the
         # last name matches.
       end
